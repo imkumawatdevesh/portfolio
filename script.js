@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     // Apply reveal class to sections
-    const sections = document.querySelectorAll('section, .project-card');
+    const sections = document.querySelectorAll('section, .project-card, .edu-card');
     sections.forEach(section => {
         section.classList.add('reveal');
         observer.observe(section);

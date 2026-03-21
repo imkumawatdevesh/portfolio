@@ -341,9 +341,7 @@
                     <p class="contact-desc">Have a project in mind? Fill out the form or send an email, and let's create something extraordinary.</p>
                 </div>
                 <div class="contact-form-container">
-                    <form action="https://formsubmit.co/dvshkmwt47@gmail.com" method="POST" class="contact-form">
-                        <!-- Redirect after submission to avoid looking unprofessional -->
-                        <input type="hidden" name="_next" value="http://localhost:3000/#contact"> 
+                    <form action="https://formsubmit.co/ajax/dvshkmwt47@gmail.com" method="POST" class="contact-form" id="contact-form">
                         <input type="hidden" name="_captcha" value="false">
                         
                         <div class="input-group">
@@ -360,6 +358,14 @@
                         </div>
                         <button type="submit" class="btn btn-primary btn-glow submit-btn">Send Message <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
                     </form>
+                    <div id="form-response" class="form-response" style="display: none;">
+                        <div class="response-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </div>
+                        <h3>Message Sent!</h3>
+                        <p>Thank you for reaching out. I'll get back to you as soon as possible.</p>
+                        <button class="btn btn-secondary reset-form-btn">Send Another Message</button>
+                    </div>
                 </div>
             </div>
         </section>

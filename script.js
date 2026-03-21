@@ -88,17 +88,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Form submission UX enhancement
-    const contactForm = document.querySelector('.contact-form');
-    // ... (existing form code) ...
-    if (contactForm) {
+    // Form submission AJAX enhancement
+    const contactForm = document.getElementById('contact-form');
+    const formResponse = document.getElementById('form-response');
+    
+    if (contactForm && formResponse) {
         contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
             const btn = this.querySelector('button[type="submit"]');
             const originalText = btn.innerHTML;
+            
+            // Show loading state
             btn.innerHTML = 'Sending... <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>';
-            btn.style.opacity = '0.7';
-            btn.style.pointerEvents = 'none';
+            btn.classList.add('loading');
+            
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Success!
+                    contactForm.style.display = 'none';
+                    formResponse.style.display = 'block';
+                    this.reset();
+                } else {
+                    // Error response
+                    return response.json().then(data => {
+                        throw new Error(data.message || 'Something went wrong');
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Oops! There was a problem sending your message: ' + error.message);
+                
+                // Reset button
+                btn.innerHTML = originalText;
+                btn.classList.remove('loading');
+            });
         });
+
+        const resetBtn = document.querySelector('.reset-form-btn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                formResponse.style.display = 'none';
+                contactForm.style.display = 'flex';
+                
+                // Reset button state just in case
+                const btn = contactForm.querySelector('button[type="submit"]');
+                btn.classList.remove('loading');
+                btn.innerHTML = 'Send Message <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+            });
+        }
     }
 
     // --- Hero Canvas Particle Network ---

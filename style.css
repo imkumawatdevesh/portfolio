@@ -126,8 +126,24 @@ nav {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-logo-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-primary);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+
+.logo span {
     font-size: 1.5rem;
     font-weight: 800;
+    line-height: 1;
     background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
     -webkit-background-clip: text;
     background-clip: text;
